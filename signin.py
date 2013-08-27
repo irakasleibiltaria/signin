@@ -37,6 +37,7 @@ from oauth2client.client import FlowExchangeError
 from simplekv.memory import DictStore
 from flaskext.kvsession import KVSessionExtension
 
+import os
 
 APPLICATION_NAME = 'Google+ Python Quickstart'
 
@@ -56,8 +57,12 @@ KVSessionExtension(store, app)
 
 # Update client_secrets.json with your Google API project information.
 # Do not change this assignment.
+
+# use relative path to open file. WSGI
+fclient_secrets_json = os.path.join(os.path.dirname(__file__), 'client_secrets.json')
+
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open(fclient_secrets_json, 'r').read())['web']['client_id']
 SERVICE = build('plus', 'v1')
 
 
